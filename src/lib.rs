@@ -12,6 +12,7 @@ use crate::cond_send::{CondSend, CondSync};
 /// Utilities related to computing CID for the inserted data
 pub mod block;
 pub mod cond_send;
+#[cfg(feature = "dashmap")]
 mod in_memory_blockstore;
 #[cfg(all(target_arch = "wasm32", feature = "indexeddb"))]
 mod indexed_db_blockstore;
@@ -22,6 +23,7 @@ mod redb_blockstore;
 #[cfg(all(not(target_arch = "wasm32"), feature = "sled"))]
 mod sled_blockstore;
 
+#[cfg(feature = "dashmap")]
 pub use crate::in_memory_blockstore::InMemoryBlockstore;
 #[cfg(all(target_arch = "wasm32", feature = "indexeddb"))]
 #[cfg_attr(docsrs, doc(cfg(all(target_arch = "wasm32", feature = "indexeddb"))))]
