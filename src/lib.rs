@@ -1,7 +1,12 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![doc = include_str!("../README.md")]
 
-use std::future::Future;
+#![cfg_attr(not(feature = "std"), no_std)]
+#[cfg(not(feature = "std"))]
+extern crate alloc;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use alloc::vec::Vec;
 
 use cid::CidGeneric;
 use multihash::Multihash;
@@ -69,6 +74,9 @@ pub enum Error {
 /// Alias for a [`Result`] with the error type [`blockstore::Error`].
 ///
 /// [`blockstore::Error`]: crate::Error
+#[cfg(not(feature = "std"))]
+pub type Result<T, E = Error> = core::result::Result<T, E>;
+#[cfg(feature = "std")]
 pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 #[cfg(all(not(target_arch = "wasm32"), any(feature = "sled", feature = "redb")))]

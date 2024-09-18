@@ -1,3 +1,6 @@
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+
 use cid::CidGeneric;
 
 /// Error returned when trying to compute new or parse existing CID. Note that errors here can be
